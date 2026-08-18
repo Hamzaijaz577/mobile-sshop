@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "iPhone 15 Pro",
+      "brand": "Apple",
+      "price": 349999,
+      "quantity": 12,
+      "outOfStock": false,
+      "image": "/images/iphone-15-pro.svg",
+      "description": "6.1-inch Super Retina XDR display, A17 Pro chip, 48MP camera."
+    },
+    {
+      "id": 2,
+      "name": "Samsung Galaxy S24",
+      "brand": "Samsung",
+      "price": 249999,
+      "quantity": 8,
+      "outOfStock": false,
+      "image": "/images/galaxy-s24.svg",
+      "description": "6.2-inch Dynamic AMOLED display, Snapdragon 8 Gen 3, 50MP camera."
+    },
+    {
+      "id": 3,
+      "name": "Xiaomi 14",
+      "brand": "Xiaomi",
+      "price": 149999,
+      "quantity": 25,
+      "outOfStock": false,
+      "image": "/images/xiaomi-14.svg",
+      "description": "6.36-inch AMOLED display, Snapdragon 8 Gen 3, Leica camera."
+    },
+    {
+      "id": 4,
+      "name": "Google Pixel 8",
+      "brand": "Google",
+      "price": 179999,
+      "quantity": 5,
+      "outOfStock": false,
+      "image": "/images/pixel-8.svg",
+      "description": "6.2-inch OLED display, Google Tensor G3, 50MP camera."
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f6f9; color: #1a1a2e; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: white;
+  padding: 18px 32px;
+}
+.header h1 { margin: 0; font-size: 1.5rem; }
+.header-actions { display: flex; gap: 12px; align-items: center; }
+.admin-link {
+  color: white;
+  text-decoration: none;
+  background: #0f3460;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.logout-btn {
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+.status-msg { text-align: center; padding: 40px; font-size: 1.1rem; color: #555; }
+.status-msg.error { color: #e94560; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease;
+}
+.product-card:hover { transform: translateY(-4px); }
+.product-card.out-of-stock { opacity: 0.7; }
+.product-card img { width: 100%; height: 180px; object-fit: cover; }
+.product-info { padding: 14px; }
+.brand { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.product-info h3 { margin: 4px 0; font-size: 1.05rem; }
+.desc { font-size: 0.85rem; color: #666; min-height: 40px; }
+.price-row { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
+.price { font-weight: bold; color: #0f3460; }
+
+.badge { font-size: 0.72rem; padding: 4px 10px; border-radius: 20px; font-weight: 600; }
+.badge-in { background: #d4f8e8; color: #1a7f4e; }
+.badge-out { background: #fde2e4; color: #c81e3e; }
+
+.buy-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #0f3460;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.buy-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* Login page */
+.login-page { display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a2e; }
+.login-box { background: white; padding: 32px; border-radius: 12px; width: 320px; display: flex; flex-direction: column; gap: 12px; }
+.login-box h2 { margin: 0; text-align: center; }
+.login-box .hint { font-size: 0.8rem; color: #888; text-align: center; margin: 0; }
+.login-box input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+.login-box button { padding: 10px; background: #0f3460; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+.login-box .error { color: #e94560; font-size: 0.85rem; text-align: center; margin: 0; }
+.back-link { text-align: center; font-size: 0.85rem; color: #666; text-decoration: none; }
+
+/* Dashboard */
+.add-btn {
+  background: #1a7f4e; color: white; border: none; padding: 10px 18px;
+  border-radius: 6px; cursor: pointer; margin-bottom: 16px; font-weight: 600;
+}
+.add-form {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;
+}
+.add-form textarea { grid-column: span 2; min-height: 60px; }
+.add-form input, .add-form textarea { padding: 8px; border: 1px solid #ddd; border-radius: 6px; }
+.add-form button { grid-column: span 2; padding: 10px; background: #0f3460; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+.admin-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+.admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+.admin-table th { background: #f0f2f5; }
+.admin-table .row-out { background: #fff5f5; }
+.thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+
+.qty-controls { display: flex; align-items: center; gap: 4px; }
+.qty-controls button {
+  width: 28px; height: 28px; border: 1px solid #ccc; background: #f4f6f9;
+  border-radius: 4px; cursor: pointer; font-weight: bold;
+}
+.qty-controls input {
+  width: 50px; text-align: center; padding: 4px; border: 1px solid #ccc; border-radius: 4px;
+}
+.add5-btn { width: auto !important; padding: 0 6px; font-size: 0.75rem; }
+
+.toggle-btn {
+  background: #0f3460; color: white; border: none; padding: 6px 10px;
+  border-radius: 6px; cursor: pointer; font-size: 0.78rem; margin-right: 6px;
+}
+.delete-btn {
+  background: #e94560; color: white; border: none; padding: 6px 10px;
+  border-radius: 6px; cursor: pointer; font-size: 0.78rem;
+}

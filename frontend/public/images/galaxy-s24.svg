@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <rect width="300" height="300" fill="#0f2027"/>
+  <rect x="95" y="35" width="110" height="230" rx="16" fill="#12395c" stroke="#2e6ba8" stroke-width="3"/>
+  <rect x="102" y="48" width="96" height="204" rx="4" fill="#081b2e"/>
+  <circle cx="150" cy="58" r="4" fill="#12395c"/>
+  <text x="150" y="285" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="15" fill="#ffffff" font-weight="600">Galaxy S24</text>
+</svg>
