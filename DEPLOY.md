@@ -1,19 +1,41 @@
-# 🚀 Deployment Guide — Vercel + Render
+# 🚀 Deployment Guide — Sab kuch Vercel par (Frontend + Backend)
 
-Aapki website 2 hisson mein deploy hogi:
-- **Frontend (React)** → Vercel par
-- **Backend (Node/Express API)** → Render par
+Backend ab MongoDB Atlas (free database) use karta hai, is liye ye Vercel serverless
+par bhi sahi kaam karega (pehle wala `data.json` file-based version Vercel par
+data save nahi rakhta tha).
 
-Vercel khud sirf static/frontend apps ke liye best hai. Backend jo file (`data.json`) mein data likhta/badalta hai,
-usko Render jaisi jagah chahiye jahan server hamesha chalta rahe (Vercel serverless mein file-writes save nahi
-rehte, is liye ye split zaroori hai).
+Frontend aur backend do alag Vercel projects ke roop mein deploy honge (dono
+Vercel par hi honge, bas alag-alag project — ye normal aur recommended tareeqa hai).
+
+---
+
+## Step 0: MongoDB Atlas (free database) setup
+
+1. [mongodb.com/cloud/atlas/register](https://mongodb.com/cloud/atlas/register) par free account banayein
+2. "Build a Database" → **M0 (FREE)** plan select karein → Create
+3. Database user banayein (username + password) — save kar lein
+4. Network Access mein "Allow Access from Anywhere" (0.0.0.0/0) add karein
+5. "Connect" → "Drivers" → Node.js se connection string copy karein, jaise:
+   ```
+   mongodb+srv://admin:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+   ```
+   `<password>` ki jagah apna asli password dal dein
+
+### Data seed karein (ek baar)
+Apne computer par:
+```bash
+cd backend
+npm install
+cp .env.example .env
+# .env file kholein aur MONGODB_URI mein apni connection string paste karein
+npm run seed
+```
+Ye starter products (`data.json` wale 4 phones) database mein daal dega.
 
 ---
 
 ## Step 1: GitHub par code push karein
 
-1. [github.com](https://github.com) par naya repository banayein (e.g. `mobile-store`)
-2. Apne project folder mein terminal khol kar:
 ```powershell
 cd C:\Users\AS\Downloads\mobile-store
 git init
@@ -26,47 +48,39 @@ git push -u origin main
 
 ---
 
-## Step 2: Backend deploy karein (Render.com)
+## Step 2: Backend deploy karein (Vercel)
 
-1. [render.com](https://render.com) par free account banayein (GitHub se sign in karein)
-2. Dashboard mein **"New +" → "Web Service"** click karein
-3. Apna GitHub repo select karein
-4. Ye settings bharein:
+1. [vercel.com](https://vercel.com) par GitHub se sign in karein
+2. **"Add New" → "Project"** → apna repo import karein
+3. Settings:
    - **Root Directory**: `backend`
-   - **Runtime**: Node
-   - **Build Command**: `npm install`
-   - **Start Command**: `node index.js`
-   - **Instance Type**: Free
-5. **Environment Variables** mein add karein (optional lekin recommended):
-   - `ADMIN_KEY` = apni pasand ki admin key (default `admin123` hai)
-6. **"Create Web Service"** click karein — Render aapko ek URL dega jaisे:
+   - **Framework Preset**: Other
+   - Build/Output settings default rehne dein (backend mein build step nahi chahiye)
+4. **Environment Variables** add karein:
+   - `MONGODB_URI` = apni Atlas connection string
+   - `MONGODB_DB` = `mobile_store`
+   - `ADMIN_KEY` = apni pasand ki admin key (default `admin123`)
+5. **Deploy** click karein — URL milega jaise:
    ```
-   https://mobile-store-backend.onrender.com
+   https://mobile-store-backend.vercel.app
    ```
-   Ye URL save kar lein, agle step mein chahiye hoga.
-
-> ⚠️ Free tier Render service kuch der inactive rehne par "sleep" ho jati hai —
-> pehli request par 30-60 second lag sakte hain jagne mein. Ye normal hai.
+   Ye save kar lein.
 
 ---
 
-## Step 3: Frontend deploy karein (Vercel)
+## Step 3: Frontend deploy karein (Vercel — naya project)
 
-1. [vercel.com](https://vercel.com) par free account banayein (GitHub se sign in karein)
-2. **"Add New" → "Project"** click karein
-3. Apna GitHub repo import karein
-4. Ye settings set karein:
+1. Vercel par phir **"Add New" → "Project"** → **wahi repo dubara import karein**
+   (Vercel ek hi repo se multiple projects banane deta hai)
+2. Settings:
    - **Root Directory**: `frontend`
-   - **Framework Preset**: Vite (auto-detect ho jayega)
-   - **Build Command**: `npm run build` (default)
-   - **Output Directory**: `dist` (default)
-5. **Environment Variables** mein add karein:
-   - Key: `VITE_API_URL`
-   - Value: `https://mobile-store-backend.onrender.com/api`
-     (Step 2 wala backend URL + `/api`)
-6. **"Deploy"** click karein
+   - **Framework Preset**: Vite (auto-detect)
+3. **Environment Variables**:
+   - `VITE_API_URL` = `https://mobile-store-backend.vercel.app/api`
+     (Step 2 wala URL + `/api`)
+4. **Deploy** click karein
 
-2-3 minute mein aapki website live ho jayegi, jaise:
+2-3 minute mein live ho jayega:
 ```
 https://mobile-store-yourname.vercel.app
 ```
@@ -75,29 +89,32 @@ https://mobile-store-yourname.vercel.app
 
 ## Step 4: Backend ko frontend allow karayein (CORS)
 
-Render dashboard mein backend service khol kar **Environment Variables** mein ye add karein:
-- Key: `FRONTEND_URL`
-- Value: `https://mobile-store-yourname.vercel.app` (aapka asli Vercel URL)
+Backend project (Vercel dashboard → Settings → Environment Variables) mein add/update karein:
+- `FRONTEND_URL` = `https://mobile-store-yourname.vercel.app` (asli Vercel frontend URL)
 
-Save karne ke baad Render service khud restart ho jayegi.
+Save karne ke baad backend project ko **Redeploy** karein (Deployments tab → latest → "..." → Redeploy).
 
 ---
 
-## Ab Test Karein
+## Test Karein
 
 - Website: `https://mobile-store-yourname.vercel.app` → products dikhne chahiye
-- Admin panel: `https://mobile-store-yourname.vercel.app/admin` → login key se dashboard khulega
+- Admin panel: `.../admin` → login key se dashboard khulega, stock update karke
+  refresh karein — ab changes **permanently save** rahenge (MongoDB mein).
 
 ---
 
-## Quick Alternative: Sirf Frontend Vercel CLI se (GitHub ke bina)
+## Local development (dono ek saath chalane ke liye)
 
-Agar sirf frontend jaldi test karna hai (backend abhi localhost par hi chale):
-```powershell
+```bash
+# Terminal 1
+cd backend
+npm install
+cp .env.example .env   # MONGODB_URI daal dein
+npm run dev             # http://localhost:5000
+
+# Terminal 2
 cd frontend
-npm install -g vercel
-vercel
+npm install
+npm run dev              # http://localhost:5173
 ```
-Terminal mein sawalon ka jawab de dein — chand second mein live link mil jayega.
-Lekin is case mein backend bhi deploy karna hoga taake admin dashboard aur products
-sab jagah se kaam karein (localhost sirf aapke apne computer tak mehdood hai).

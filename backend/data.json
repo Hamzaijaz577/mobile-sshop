@@ -25,8 +25,8 @@
       "name": "Xiaomi 14",
       "brand": "Xiaomi",
       "price": 149999,
-      "quantity": 25,
-      "outOfStock": false,
+      "quantity": 0,
+      "outOfStock": true,
       "image": "/images/xiaomi-14.svg",
       "description": "6.36-inch AMOLED display, Snapdragon 8 Gen 3, Leica camera."
     },
